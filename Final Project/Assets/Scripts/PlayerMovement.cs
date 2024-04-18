@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     Animator animator;
     SpriteRenderer spriteRenderer;
     Vector3 lastDirection = Vector3.zero;
+    public int Total = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,12 +58,6 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetTrigger("Attack");
         }
-        Debug.Log(lastDirection);
-
-
-
-
-
         //Debug.Log(moveX.ToString());
         //movementChange = Time.deltaTime*speed;
         //switch (Input.GetKeyDown(KeyCode.UpArrow) ? KeyCode.UpArrow :
@@ -84,4 +79,26 @@ public class PlayerMovement : MonoBehaviour
         //        break;
         //}
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Entering " + collision.name);
+        if (collision.CompareTag("Breakeables"))
+        {
+            Total += collision.GetComponent<Obstacle>().getValue();
+        
+            Destroy(collision.gameObject);  
+    
+        }
+    }
+
+    //public void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    Debug.Log("Exiting" + collision.name);
+    //}
+
+    //public void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    Debug.Log("Near" + collision.name);
+    //}
 }
