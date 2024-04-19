@@ -80,17 +80,17 @@ public class PlayerMovement : MonoBehaviour
         //}
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("Entering " + collision.name);
-        if (collision.CompareTag("Breakeables"))
-        {
-            Total += collision.GetComponent<Obstacle>().getValue();
+    //public void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    Debug.Log("Entering " + collision.name);
+    //    if (collision.CompareTag("Breakeables"))
+    //    {
+    //        Total += collision.GetComponent<Obstacle>().getValue();
         
-            Destroy(collision.gameObject);  
+    //        Destroy(collision.gameObject);  
     
-        }
-    }
+    //    }
+    //}
 
     //public void OnTriggerExit2D(Collider2D collision)
     //{
