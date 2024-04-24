@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-   public Animator animator;
+    public Animator animator;
+    public int damage;
     private void Start()
     {
         animator = GetComponentInParent<Animator>();
@@ -31,6 +32,10 @@ public class Attack : MonoBehaviour
             //Total += collision.GetComponent<Obstacle>().getValue();
             Destroy(collision.gameObject);
         }
+        if(collision.CompareTag("Enemy"))
+        {
+            collision.GetComponent<Enemy>().TakeDamage(damage);
+        } 
     }
 
 }
