@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -15,21 +16,28 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected int health;
     public GameObject player;
     // Start is called before the first frame update
+    public Slider healthSlider;
     public virtual void Start()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
+        healthSlider.minValue = 0;
+        healthSlider.maxValue = health;
+        healthSlider.value = health;
     }
 
     public virtual void TakeDamage(int damage)
     {
         health -= damage;
-        if(health <= 0)
+        healthSlider.value = health;
+        if (health <= 0)
         {
             Destroy(gameObject);
         }
     }
+
+    
 
 }
