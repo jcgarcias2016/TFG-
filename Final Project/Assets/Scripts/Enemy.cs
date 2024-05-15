@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     public float speed;
-    protected Rigidbody2D playerRigidBody;
+    protected Rigidbody2D enemyRigidBody;
     protected Animator animator;
     protected SpriteRenderer spriteRenderer;
     protected Vector3 lastDirection = Vector3.zero;
@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     public Slider healthSlider;
     public virtual void Start()
     {
-        playerRigidBody = GetComponent<Rigidbody2D>();
+        enemyRigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
@@ -36,6 +36,11 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public virtual void Movement()
+    {
+
     }
 
     
