@@ -34,13 +34,18 @@ public class Enemy : MonoBehaviour
         healthSlider.value = health;
         if (health <= 0)
         {
-            Destroy(gameObject);
+            animator.SetTrigger("Dead");
         }
     }
 
     public virtual void Movement()
     {
 
+    }
+
+    public void DestroyEnemy()
+    {
+        Destroy(gameObject);
     }
 
     

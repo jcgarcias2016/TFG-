@@ -18,10 +18,16 @@ public class TreeEnemy : Enemy
     // Update is called once per frame
     void Update()
     {
-        if (moving) { 
-            Movement(); 
+        if (Vector3.Distance(transform.position, player.transform.position) < 2.5f) { 
+            moving = true;
+            Movement();
         }
-        
+        else if(moving) 
+        {
+            moving = false;
+            animator.SetBool("Moving", false);
+        }
+
     }
 
     public override void Movement()
@@ -29,7 +35,14 @@ public class TreeEnemy : Enemy
         base.Movement();
         direction = player.transform.position - transform.position;
         Vector3.Normalize(direction);
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed*Time.deltaTime);
+        if(Vector3.Distance(transform.position, player.transform.position) < 0.5f)
+        {
+
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }
         //direction = movement.normalized;
         //enemyRigidBody.MovePosition(movement);
         if(direction.x < 0)
@@ -45,19 +58,19 @@ public class TreeEnemy : Enemy
         animator.SetBool("Moving", true);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player")){
-            moving = true;
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Player")){
+    //        moving = true;
+    //    }
+    //}
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            moving = false;
-            animator.SetBool("Moving", false);
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        moving = false;
+    //        animator.SetBool("Moving", false);
+    //    }
+    //}
 }
