@@ -7,6 +7,10 @@ public class TreeEnemy : Enemy
     private Vector3 movement = Vector3.zero;
     private Vector3 direction = Vector3.zero;
     private bool moving = false;
+    private float timeBetweenAttacks = 1f;
+    private float timePastAttack = 0f;
+    [SerializeField] private int damage;
+
 
 
     // Start is called before the first frame update
@@ -37,11 +41,20 @@ public class TreeEnemy : Enemy
         Vector3.Normalize(direction);
         if(Vector3.Distance(transform.position, player.transform.position) < 0.5f)
         {
-
+            timePastAttack += Time.deltaTime;
+            if(timePastAttack > timeBetweenAttacks)
+            {
+                player.GetComponent<PlayerHealth>().TakeDamage(damage);
+                timePastAttack = 0f;
+            }
         }
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            if(timePastAttack != 0f)
+            {
+                timePastAttack = 0f;
+            }
         }
         //direction = movement.normalized;
         //enemyRigidBody.MovePosition(movement);
