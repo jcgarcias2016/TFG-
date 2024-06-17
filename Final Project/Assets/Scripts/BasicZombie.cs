@@ -9,6 +9,7 @@ public class BasicZombie : Enemy
     private bool moving = false;
     private float timeBetweenAttacks = 1f;
     private float timePastAttack = 0f;
+    [SerializeField] private GameObject weapon;
     [SerializeField] private int damage;
 
 
@@ -21,17 +22,7 @@ public class BasicZombie : Enemy
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < 2.5f)
-        {
-            moving = true;
-            Movement();
-        }
-        else if (moving)
-        {
-            moving = false;
-            animator.SetBool("Moving", false);
-        }
-
+        Movement();
     }
 
     public override void Movement()
@@ -44,12 +35,19 @@ public class BasicZombie : Enemy
             timePastAttack += Time.deltaTime;
             if (timePastAttack > timeBetweenAttacks)
             {
+                if(animator.GetBool("Attack") == false) { 
+                    animator.SetBool("Attack", true); 
+                }
                 player.GetComponent<PlayerHealth>().TakeDamage(damage);
                 timePastAttack = 0f;
             }
         }
         else
         {
+            if (animator.GetBool("Attack") == true)
+            {
+                animator.SetBool("Attack", false);
+            }
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
             if (timePastAttack != 0f)
             {
@@ -61,13 +59,14 @@ public class BasicZombie : Enemy
         if (direction.x < 0)
         {
             spriteRenderer.flipX = true;
+            weapon.transform.localScale = new Vector3(-1f, 1f , 1f);
         }
         else
         {
             spriteRenderer.flipX = false;
+            weapon.transform.localScale = new Vector3(1f, 1f, 1f);
         }
         animator.SetFloat("MoveX", direction.x);
         animator.SetFloat("MoveY", direction.y);
-        animator.SetBool("Moving", true);
     }
 }
