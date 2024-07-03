@@ -8,7 +8,7 @@ public class BasicZombie : Enemy
     private Vector3 direction = Vector3.zero;
     private bool moving = false;
     private float timeBetweenAttacks = 1f;
-    private float timePastAttack = 0f;
+    [SerializeField] private float timePastAttack = 0f;
     [SerializeField] private GameObject weapon;
     [SerializeField] private int damage;
 

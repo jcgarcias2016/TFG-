@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
     private float timePassed = 0f;
     [SerializeField] private float spawnRadius;
     [SerializeField] private float timeToSpawn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,8 @@ public class EnemySpawner : MonoBehaviour
             //Vector3 spawnDirection = (Random.insideUnitCircle * transform.position).normalized;
             //Vector3 spawnPosition = transform.position + spawnDirection * spawnRadius;
             Vector3 spawnPosition = Random.insideUnitCircle.normalized * spawnRadius + new Vector2(transform.position.x, transform.position.y);
-            Instantiate(enemyPool[0], spawnPosition, Quaternion.identity);
+            int spawnIndex = Random.Range(0, enemyPool.Count);
+            Instantiate(enemyPool[spawnIndex], spawnPosition, Quaternion.identity);
         }
     }
 }

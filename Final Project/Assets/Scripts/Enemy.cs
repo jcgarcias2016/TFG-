@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour
     public GameObject player;
     // Start is called before the first frame update
     public Slider healthSlider;
+    public List<GameObject> toDisable;
+
     public virtual void Start()
     {
         enemyRigidBody = GetComponent<Rigidbody2D>();
@@ -26,6 +28,7 @@ public class Enemy : MonoBehaviour
         healthSlider.minValue = 0;
         healthSlider.maxValue = health;
         healthSlider.value = health;
+        
     }
 
     public virtual void TakeDamage(int damage)
@@ -34,6 +37,10 @@ public class Enemy : MonoBehaviour
         healthSlider.value = health;
         if (health <= 0)
         {
+            foreach(GameObject item in toDisable)
+            {
+                item.SetActive(false);
+            }
             animator.SetTrigger("Dead");
         }
     }
